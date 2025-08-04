@@ -36,6 +36,7 @@ export type SubBlockType =
   | 'time-input' // Time input
   | 'oauth-input' // OAuth credential selector
   | 'webhook-config' // Webhook configuration
+  | 'trigger-config' // Trigger configuration
   | 'schedule-config' // Schedule status and information
   | 'file-selector' // File selector for Google Drive, etc.
   | 'project-selector' // Project selector for Jira, Discord, etc.
@@ -156,6 +157,9 @@ export interface SubBlockConfig {
     placeholder?: string // Custom placeholder for the prompt input
     maintainHistory?: boolean // Whether to maintain conversation history
   }
+  // Trigger-specific configuration
+  availableTriggers?: string[] // List of trigger IDs available for this subblock
+  triggerProvider?: string // Which provider's triggers to show
 }
 
 // Main block definition
@@ -184,6 +188,11 @@ export interface BlockConfig<T extends ToolResponse = ToolResponse> {
     }
   }
   hideFromToolbar?: boolean
+  // New: Trigger capabilities
+  triggers?: {
+    enabled: boolean
+    available: string[] // List of trigger IDs this block supports
+  }
 }
 
 // Output configuration rules
